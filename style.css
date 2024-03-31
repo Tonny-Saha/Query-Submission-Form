@@ -1,0 +1,263 @@
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+    /* padding-top: 50px; */
+    margin-top: 20px;
+    padding-bottom: 20px;
+    font-size: 12px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.col-md-6 right {
+    padding:20px;
+
+}
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+h3{
+    color: white;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 10vh;
+    /* padding: 20px; */
+}
+
+.side-image {
+   background-image: url("Images/image.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 10px 0 0 10px;
+    position: relative;
+}
+
+.row {
+    width: 900px;
+    height: 570px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 0px;
+    box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
+}
+
+.text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+    .text p {
+        color: #fff;
+        font-size: 20px;
+    }
+
+i {
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.input-box {
+    margin-top:0px;
+    width: 330px;
+    box-sizing: border-box;
+}
+
+img {
+    width: 100%;
+    height:550px;
+    position: absolute;
+    right:5px;
+    border-bottom-left-radius:10px;
+    border-top-left-radius:10px;
+    
+}
+
+.input-box header {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 0 10px 0 10px;
+}
+
+.input {
+    height: 45px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 20px;
+    color: #40414a;
+}
+
+.input-box .input-field label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-field input:focus ~ label {
+    top: -10px;
+    font-size: 13px;
+}
+
+.input-field input:valid ~ label {
+    top: -10px;
+    font-size: 13px;
+    color: #5d5076;
+}
+
+.subject{
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+#district{
+    border-color: rgb(221, 221, 221);
+    padding-top: 15px;
+    padding-bottom: 10px;
+    border-radius: 6px;
+}
+
+.thana{
+    border-color: rgb(221, 221, 221);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 6px;
+}
+
+.input-field .input:focus, .input-field .input:valid {
+    border-bottom: 1px solid #743ae1;
+}
+
+.btn-group {
+    display: flex;
+    /* justify-content: space-between; */
+}
+
+.submit {
+    width:130px;
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #ececec;
+    border-radius: 5px;
+    transition: .4s;
+}
+
+    .submit:hover {
+        background: rgba(37, 95, 156, 0.937);
+        color: #fff;
+    }
+
+.reset {
+    width: 130px;
+    border: none;
+    outline: none;
+    height: 45px;
+    background: #ececec;
+    border-radius: 5px;
+    transition: .4s;
+}
+
+    .reset:hover {
+        background: #03396c;
+        color: #fff;
+    }
+
+
+/* Responsive: Portrait tablets and up */
+@media screen and (max-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+    .img {
+        display:none;
+    }
+    .side-image {
+        display:none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+
+    .img {
+        display: none;
+    }
+
+    .side-image {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .jumbotron {
+        margin-top: 20px;
+    }
+
+    .body-content {
+        padding: 0;
+    }
+
+
+    .img {
+        display: none;
+    }
+
+    .side-image {
+        display: none;
+    }
+}
+/*@media screen and (max-width:1023) {
+
+    .img {
+        display: none;
+    }
+
+    .side-image {
+        display: none;
+    }
+}*/
+

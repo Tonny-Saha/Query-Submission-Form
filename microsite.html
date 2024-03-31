@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+    <title>Querry Submission Form</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container main">
+            <div class="row">
+                <div class="col-md-6 side-image">
+                           
+                    <!-------------      image     ------------->
+                    
+                    <!-- <img src="Images/image.jpg" alt=""> -->
+                    <div class="text">
+                        <h3>Querry Submission Form</h3>
+                    </div>
+                    
+                </div>
+                <div class="col-md-6 right">
+                    
+                   <form action="" class="form">
+                    <div class="input-box">
+                        
+                         <div class="input-field">
+                            <input type="text" class="input" id="name" name="name" required="" autocomplete="off">
+                            <label for="name">Name</label>
+                        </div>
+                        
+                        <div class="input-field">
+                            <input type="tel" class="input" id="phone" name="phone" required="" maxlength="11" autocomplete="off">
+                            <label for="phone">Phone Number</label>
+                        </div>
+                        
+                        <div class="input-field">
+                            <input type="text" class="input" id="query" name="query" required="">
+                            <label for="query">Detail query</label>
+                        </div>
+                        
+                        
+                         <div class="subject">
+                                    
+                                    <label for="subject">Subject</label> <br>
+                                    <input type="checkbox" id="q1" name="q1" value="Question : সিমেন্টের দাম জানতে চাই ">
+                                    <label for="option1 " class="subject"> সিমেন্টের দাম জানতে চাই </label><br>
+                                    <input type="checkbox" id="q2" name="q2" value="Question : সিমেন্ট সম্পর্কে জানতে চাই">
+                                    <label for="option2"> সিমেন্ট সম্পর্কে জানতে চাই </label><br>
+                                    <input type="checkbox" id="q3" name="q3" value="Question : কোথা থেকে কিনব?">
+                                    <label for="option3"> কোথা থেকে কিনব?</label><br>
+                                    <input type="checkbox" id="q4" name="q4" value="Question : বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই ">
+                                    <label for="option4"> বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই</label>
+                         </div>
+
+                         <div class="input-field" id="district">
+                             <label for="district">District</label>
+                             <br>
+                              <select name="district" id="district" class="district">
+                                 <option value="">Select District</option>
+                          </select>
+                         </div>
+                         
+                         <div class="input-field" id="thanaContainer">
+                             <label for="thana">Thana</label>
+                             <br>
+                             <select name="thana" id="thanaDropdown" class="thana"> <!-- Keep the ID as thanaDropdown -->
+                                <option value="">Select Thana</option>
+                             </select>
+                         </div>
+  
+                        <div class="btn-group">
+                            <div class="input-field">
+                             <input type="submit" class="submit" value="Submit">
+                        </div> 
+                   
+                             <div class="input-field">
+                             <input type="reset" class="reset" value="Reset the form">
+                        </div> 
+                         </div>
+                 
+                     </div> 
+                   </form> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        let form = document.querySelector('form');
+        form.addEventListener('submit', handleSubmit);
+    
+        function handleSubmit(event){
+            event.preventDefault();
+            let formData = new FormData(form);
+    
+            // Extracting values from form fields
+            let name = formData.get('name');
+            let phone = formData.get('phone');
+            let query = formData.get('query');
+            let district = document.querySelector('.district').value; // Get selected district name
+            let thana = document.querySelector('.thana').value; // Get selected thana name
+    
+            // Creating an object with the required fields
+            let data = {
+                name: name,
+                phone: phone,
+                query: query,
+                district: district,
+                thana: thana
+            };
+    
+            let jsonData = JSON.stringify(data);
+    
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: jsonData
+            })
+            .then(res => res.json())
+            .then(result => console.log(result))
+            .catch(err => console.log(err))
+        }
+    </script>
+</body>
+</html>
