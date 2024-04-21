@@ -28,50 +28,67 @@
                     <div class="input-box">
                         
                          <div class="input-field">
-                            <input type="text" class="input" id="name" name="name" required="" autocomplete="off">
-                            <label for="name">Name</label>
+                            <input type="text" class="input" id="name" name="name" required="" autocomplete="off" >
+                            <label for="name">Name <span>*</span></label>
                         </div>
                         
                         <div class="input-field">
-                            <input type="tel" class="input" id="phone" name="phone" required="" maxlength="11" autocomplete="off">
-                            <label for="phone">Phone Number</label>
-                        </div>
-                        
-                        <div class="input-field">
-                            <input type="text" class="input" id="query" name="query" required="">
-                            <label for="query">Detail query</label>
-                        </div>
-                        
-                        
-                         <div class="subject">
-                                    
-                                    <label for="subject">Subject</label> <br>
-                                    <input type="checkbox" id="q1" name="q1" value="Question : সিমেন্টের দাম জানতে চাই ">
-                                    <label for="option1 " class="subject"> সিমেন্টের দাম জানতে চাই </label><br>
-                                    <input type="checkbox" id="q2" name="q2" value="Question : সিমেন্ট সম্পর্কে জানতে চাই">
-                                    <label for="option2"> সিমেন্ট সম্পর্কে জানতে চাই </label><br>
-                                    <input type="checkbox" id="q3" name="q3" value="Question : কোথা থেকে কিনব?">
-                                    <label for="option3"> কোথা থেকে কিনব?</label><br>
-                                    <input type="checkbox" id="q4" name="q4" value="Question : বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই ">
-                                    <label for="option4"> বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই</label>
-                         </div>
+                            <!-- <input type="tel" class="input" id="phone" name="phone" required="" maxlength="14" autocomplete="off" value="+880" >
+                            <label for="phone">Phone Number <span>*</span></label> -->
 
-                         <div class="input-field" id="district">
-                             <label for="district">District</label>
+                            <input type="tel" class="input" id="phone" name="phone" required="" maxlength="14" autocomplete="off" value="+880">
+                           <label for="phone">Phone Number</label>
+                        </div>
+
+                        <div class="subject-dropdown">
+                            <label for="subject">Subject <span>*</span></label> <br>
+                            <input type="checkbox" id="q1" name="subject" value="Question : সিমেন্টের দাম জানতে চাই" >
+                            <label for="option1" class="subject"> &nbsp; সিমেন্টের দাম জানতে চাই </label><br>
+                            <input type="checkbox" id="q2" name="subject" value="Question : সিমেন্ট সম্পর্কে জানতে চাই">
+                            <label for="option2"> &nbsp; সিমেন্ট সম্পর্কে জানতে চাই </label><br>
+                            <input type="checkbox" id="q3" name="subject" value="Question : কোথা থেকে কিনব?">
+                            <label for="option3"> &nbsp; কোথা থেকে কিনব? </label><br>
+                            <input type="checkbox" id="q4" name="subject" value="Question : বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই ">
+                            <label for="option4"> &nbsp; বিক্রয় প্রতিনিধির সাথে কথা বলতে চাই </label>
+                        </div>
+                        
+                         <div class="input-field">
+                            <label for="query">Detail Query</label>
+                            <br> <br>
+                            <!-- <textarea class="textarea" id="query" name="query" ></textarea> -->
+                            <textarea id="textarea" name="textarea"></textarea>
+                        </div>
+
+                         <!-- <div class="input-field" id="district">
+                             <label for="district">District <span>*</span></label>
                              <br>
-                              <select name="district" id="district" class="district">
-                                 <option value="">Select District</option>
+                              <select name="district" id="district" class="district" required=""> 
                           </select>
-                         </div>
+                         </div> -->
+
+
+                         <div class="dropdown">
+                            <label for="district" class="district-class">District <span>*</span></label>
+                             <br>
+                            <input type="text" id="searchInput" oninput="getDistricts()" onkeydown="handleKeyDown(event)" placeholder="Type to search" class="district">
+                            <div class="dropdown-content" id="dropdownContent"></div>
+                          </div>
+
+                          <!-- Thana -->
                          
                          <div class="input-field" id="thanaContainer">
-                             <label for="thana">Thana</label>
-                             <br>
-                             <select name="thana" id="thanaDropdown" class="thana"> <!-- Keep the ID as thanaDropdown -->
+                             <label for="thana">Thana <span>*</span></label>
+                             <br> <br>
+                             <!-- <select name="thana" id="thanaDropdown" class="thana" required="">
                                 <option value="">Select Thana</option>
-                             </select>
+                             </select> -->
+
+                             <select id="thanaDropdownContent" class="dropdown-content">
+                              <option value="">Select Thana</option>
+                            </select>
+
                          </div>
-  
+
                         <div class="btn-group">
                             <div class="input-field">
                              <input type="submit" class="submit" value="Submit">
@@ -88,45 +105,851 @@
             </div>
         </div>
     </div>
+<script >
 
+   document.addEventListener('DOMContentLoaded', function() {
+    var phoneInput = document.getElementById("phone");
+    
+    // Initialize the value of the input field with +880
+    phoneInput.value = "+880";
 
-    <script>
-        let form = document.querySelector('form');
-        form.addEventListener('submit', handleSubmit);
-    
-        function handleSubmit(event){
-            event.preventDefault();
-            let formData = new FormData(form);
-    
-            // Extracting values from form fields
-            let name = formData.get('name');
-            let phone = formData.get('phone');
-            let query = formData.get('query');
-            let district = document.querySelector('.district').value; // Get selected district name
-            let thana = document.querySelector('.thana').value; // Get selected thana name
-    
-            // Creating an object with the required fields
-            let data = {
-                name: name,
-                phone: phone,
-                query: query,
-                district: district,
-                thana: thana
-            };
-    
-            let jsonData = JSON.stringify(data);
-    
-            fetch('https://jsonplaceholder.typicode.com/posts', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json'
-                },
-                body: jsonData
-            })
-            .then(res => res.json())
-            .then(result => console.log(result))
-            .catch(err => console.log(err))
+    // Set cursor position after "+880" when input field gets focus
+    phoneInput.addEventListener("focus", function(event) {
+        if (phoneInput.setSelectionRange) {
+            phoneInput.setSelectionRange(4, 4);
         }
-    </script>
+    });
+
+    // Prevent user from editing the prefix part
+    phoneInput.addEventListener("input", function(event) {
+        if (phoneInput.value.indexOf("+880") !== 0) {
+            phoneInput.value = "+880" + phoneInput.value.substring(4);
+        }
+    });
+   // Prevent user from typing non-numeric characters
+   phoneInput.addEventListener("keydown", function(event) {
+                // Allow backspace, delete, left arrow, right arrow, home, and end keys
+                if (event.key === "Backspace" || event.key === "Delete" || event.key === "ArrowLeft" || event.key === "ArrowRight" || event.key === "Home" || event.key === "End") {
+                    return;
+                }
+                // Allow only numeric characters
+                if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault();
+                }
+            });
+            // Validate phone number when focus moves away from the input field
+  phoneInput.addEventListener("blur", function(event) {
+
+                if(phoneInput.value.length !== 14){
+                    alert("Phone number should be 11 digits long.");
+                }else{
+                    // console.log("Hello");
+                }
+                
+                var regex = /^(\+880)?(13|14|15|16|17|18|19)\d{8}$/;
+                if (!regex.test(phoneInput.value) && phoneInput.value.length == 14 ) {
+                    alert("Invalid phone number. Valid Phone Number Examples: 013, 014, 015, 016, 017, 018, 019");
+                    console.log(phoneInput.value.length)}
+                else{
+                    // console.log("Hello");
+                }
+            });
+
+
+});
+
+</script>
+
+<!-- <script>
+let dropdownOptions = [];
+let selectedIndex = -1;
+
+async function getDistricts() {
+  const searchInput = document.getElementById('searchInput').value;
+  const dropdownContent = document.getElementById('dropdownContent');
+  dropdownContent.innerHTML = ''; // Clear previous suggestions
+  dropdownOptions = []; // Clear previous dropdown options
+  
+  try {
+    const response = await fetch("https://salesforcedev.bergerbd.com/api/district/getAllDistricts");
+    const data = await response.json();
+    
+    if (!data || !Array.isArray(data.result)) {
+      console.error('Unexpected data format:', data);
+      return;
+    }
+    
+    const districts = data.result.map(item => item.name);
+    
+    const filteredDistricts = districts.filter(district => district.toLowerCase().includes(searchInput.toLowerCase()));
+    
+    filteredDistricts.forEach(district => {
+      dropdownOptions.push(district);
+      const option = document.createElement('a');
+      option.textContent = district;
+      dropdownContent.appendChild(option);
+    });
+
+    if (filteredDistricts.length > 0) {
+      dropdownContent.style.display = 'block';
+    } else {
+      dropdownContent.style.display = 'none';
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+function handleKeyDown(event) {
+  const dropdownContent = document.getElementById('dropdownContent');
+  const options = dropdownContent.querySelectorAll('a');
+  
+  if (event.key === 'ArrowDown') {
+    event.preventDefault(); // Prevent default scrolling of the page
+    
+    if (selectedIndex < dropdownOptions.length - 1) {
+      selectedIndex++;
+      updateSelectedOption(options);
+    }
+  } else if (event.key === 'ArrowUp') {
+    event.preventDefault(); // Prevent default scrolling of the page
+    
+    if (selectedIndex > 0) {
+      selectedIndex--;
+      updateSelectedOption(options);
+    }
+  } else if (event.key === 'Enter') {
+    event.preventDefault(); // Prevent form submission
+    
+    if (selectedIndex !== -1) {
+      const selectedOption = options[selectedIndex];
+      document.getElementById('searchInput').value = selectedOption.textContent;
+      dropdownContent.style.display = 'none';
+    }
+  }
+}
+
+function updateSelectedOption(options) {
+  options.forEach(option => {
+    option.classList.remove('active');
+  });
+  
+  if (selectedIndex !== -1) {
+    options[selectedIndex].classList.add('active');
+  }
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+  if (!event.target.matches('.dropdown-content')) {
+    document.getElementById('dropdownContent').style.display = 'none';
+  }
+}
+
+// Close the dropdown if the user clicks outside of it
+document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.dropdown');
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (!dropdown.contains(event.target)) {
+        dropdownContent.style.display = 'none';
+    }
+});
+
+// Handle click on dropdown item
+document.addEventListener('click', function(event) {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (event.target.matches('.dropdown-content a')) {
+        const selectedOption = event.target.textContent;
+        document.getElementById('searchInput').value = selectedOption;
+        dropdownContent.style.display = 'none';
+    }
+});
+
+
+</script> -->
+
+
+<!-- district + thana -->
+
+<!-- <script>
+  let dropdownOptions = [];
+  let thanaDropdownOptions = [];
+  let selectedIndex = -1;
+  
+  async function getThanasByDistrictId(districtId) {
+    const thanaDropdown = document.getElementById('thanaDropdownContent');
+    thanaDropdown.innerHTML = '<option value="">Select Thana</option>'; // Clear previous thana suggestions
+  
+    try {
+      const response = await fetch(`https://salesforcedev.bergerbd.com/api/thana/getAllThanaByDistrictId/${districtId}`);
+      
+      const data = await response.json();
+  
+      debugger;
+  
+      if (!data) {
+        console.log('Error return while try to get data !');      
+        return;
+      }
+  
+      if(!data.result.thanaResponse.length > 0) {
+        console.log('No data found for this Distict');      
+        return;
+      }
+  
+      const thanas = data.result.thanaResponse;
+  
+      thanas.forEach(thana => {
+        const option = document.createElement('option');
+        option.value = thana.id;
+        option.textContent = thana.name;
+        thanaDropdown.appendChild(option);
+      });
+  
+      thanaDropdown.style.display = 'block';
+    } catch (error) {
+      console.error('Error fetching thana data:', error);
+    }
+  }
+  
+  async function getDistricts() {
+    const searchInput = document.getElementById('searchInput').value;
+    const dropdownContent = document.getElementById('dropdownContent');
+    dropdownContent.innerHTML = ''; // Clear previous suggestions
+    dropdownOptions = []; // Clear previous dropdown options
+    
+    try {
+      const response = await fetch("https://salesforcedev.bergerbd.com/api/district/getAllDistricts");
+      const data = await response.json();
+      
+      if (!data || !Array.isArray(data.result)) {
+        console.error('Unexpected data format:', data);
+        return;
+      }
+      
+      const districts = data.result;
+      
+      const filteredDistricts = districts.filter(district => district.name.toLowerCase().includes(searchInput.toLowerCase()));
+      
+      filteredDistricts.forEach(district => {
+        dropdownOptions.push(district.name);
+        const option = document.createElement('a');
+        option.textContent = district.name;
+        option.addEventListener('click', () => handleDistrictSelection(district.id, district.name));
+        dropdownContent.appendChild(option);
+      });
+  
+      if (filteredDistricts.length > 0) {
+        dropdownContent.style.display = 'block';
+      } else {
+        dropdownContent.style.display = 'none';
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  }
+  
+  function handleDistrictSelection(districtId, districtName) {
+    document.getElementById('searchInput').value = districtName;
+    
+    // Fetch thanas based on the selected district ID
+    getThanasByDistrictId(districtId);
+  }
+  
+  function handleThanaSelection() {
+    const thanaDropdown = document.getElementById('thanaDropdownContent');
+    const selectedThanaId = thanaDropdown.value;
+    const selectedThanaName = thanaDropdown.options[thanaDropdown.selectedIndex].textContent;
+  
+    if (selectedThanaId) {
+      document.getElementById('searchInput').value = selectedThanaName;
+    }
+  }
+  
+  function handleKeyDown(event) {
+    const dropdownContent = document.getElementById('dropdownContent');
+    const options = dropdownContent.querySelectorAll('a');
+    
+    if (event.key === 'ArrowDown') {
+      event.preventDefault(); // Prevent default scrolling of the page
+      
+      if (selectedIndex < dropdownOptions.length - 1) {
+        selectedIndex++;
+        updateSelectedOption(options);
+      }
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault(); // Prevent default scrolling of the page
+      
+      if (selectedIndex > 0) {
+        selectedIndex--;
+        updateSelectedOption(options);
+      }
+    } else if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent form submission
+      
+      if (selectedIndex !== -1) {
+        const selectedOption = options[selectedIndex];
+        document.getElementById('searchInput').value = selectedOption.textContent;
+        dropdownContent.style.display = 'none';
+      }
+    }
+  }
+  
+  function updateSelectedOption(options) {
+    options.forEach(option => {
+      option.classList.remove('active');
+    });
+    
+    if (selectedIndex !== -1) {
+      options[selectedIndex].classList.add('active');
+    }
+  }
+  
+  // Event listeners
+  document.getElementById('searchInput').addEventListener('input', getDistricts);
+  document.getElementById('thanaDropdownContent').addEventListener('change', handleThanaSelection);
+  document.addEventListener('keydown', handleKeyDown);
+  
+  </script> -->
+  
+  <!-- <script>
+    let dropdownOptions = [];
+    let thanaDropdownOptions = [];
+    let selectedIndex = -1;
+    
+    function handleKeyDown(event) {
+    const dropdownContent = document.getElementById('dropdownContent');
+    const options = dropdownContent.querySelectorAll('a');
+    
+    if (event.key === 'ArrowDown') {
+        event.preventDefault(); // Prevent default scrolling of the page
+        
+        if (selectedIndex < dropdownOptions.length - 1) {
+            selectedIndex++;
+            updateSelectedOption(options);
+        }
+    } else if (event.key === 'ArrowUp') {
+        event.preventDefault(); // Prevent default scrolling of the page
+        
+        if (selectedIndex > 0) {
+            selectedIndex--;
+            updateSelectedOption(options);
+        }
+    } else if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+        
+        if (selectedIndex !== -1) {
+            const selectedOption = options[selectedIndex];
+            document.getElementById('searchInput').value = selectedOption.textContent;
+            dropdownContent.style.display = 'none';
+            const districtId = selectedOption.getAttribute('data-id'); // Get district ID
+            handleDistrictSelection(districtId, selectedOption.textContent); // Fetch thanas
+        }
+    }
+}
+
+
+    function updateSelectedOption(options) {
+      options.forEach(option => {
+        option.classList.remove('active');
+      });
+      
+      if (selectedIndex !== -1) {
+        options[selectedIndex].classList.add('active');
+      }
+    }
+
+    async function getThanasByDistrictId(districtId) {
+      const thanaDropdown = document.getElementById('thanaDropdownContent');
+      thanaDropdown.innerHTML = '<option value="">Select Thana</option>'; // Clear previous thana suggestions
+    
+      try {
+        const response = await fetch(`https://salesforcedev.bergerbd.com/api/thana/getAllThanaByDistrictId/${districtId}`);
+        
+        const data = await response.json();
+    
+        debugger;
+    
+        if (!data) {
+          console.log('Error return while try to get data !');      
+          return;
+        }
+    
+        if(!data.result.thanaResponse.length > 0) {
+          console.log('No data found for this Distict');      
+          return;
+        }
+    
+        const thanas = data.result.thanaResponse;
+    
+        thanas.forEach(thana => {
+          const option = document.createElement('option');
+          option.value = thana.id;
+          option.textContent = thana.name;
+          thanaDropdown.appendChild(option);
+        });
+    
+        thanaDropdown.style.display = 'block';
+      } catch (error) {
+        console.error('Error fetching thana data:', error);
+      }
+    }
+    
+    async function getDistricts() {
+      const searchInput = document.getElementById('searchInput').value;
+      const dropdownContent = document.getElementById('dropdownContent');
+      dropdownContent.innerHTML = ''; // Clear previous suggestions
+      dropdownOptions = []; // Clear previous dropdown options
+      
+      try {
+        const response = await fetch("https://salesforcedev.bergerbd.com/api/district/getAllDistricts");
+        const data = await response.json();
+        
+        if (!data || !Array.isArray(data.result)) {
+          console.error('Unexpected data format:', data);
+          return;
+        }
+        
+        const districts = data.result;
+        console.log(districts);
+        const filteredDistricts = districts.filter(district => district.name.toLowerCase().includes(searchInput.toLowerCase()));
+        
+//     filteredDistricts.forEach(district => {
+//     dropdownOptions.push(district.name);
+//     const option = document.createElement('a');
+//     option.textContent = district.name;
+
+//     // Function to handle district selection
+//     const handleSelection = () => {
+//         handleDistrictSelection(district.id, district.name);
+//     };
+
+//     // Add event listener for mouse click
+//     option.addEventListener('click', handleSelection);
+
+//     // Add event listener for Enter key press
+//     option.addEventListener('keydown', event => {
+//         if (event.key === 'Enter') {
+//             handleSelection();
+//         }
+//     });
+
+//     dropdownContent.appendChild(option);
+// });
+
+    
+filteredDistricts.forEach(district => {
+    dropdownOptions.push(district.name);
+    const option = document.createElement('a');
+    option.textContent = district.name;
+    option.setAttribute('data-id', district.id); // Add district ID attribute
+
+    // Add event listener for mouse click
+    option.addEventListener('click', handleSelection);
+
+    // Add event listener for Enter key press
+    option.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            handleSelection();
+        }
+    });
+
+    dropdownContent.appendChild(option);
+});
+
+        if (filteredDistricts.length > 0) {
+          dropdownContent.style.display = 'block';
+        } else {
+          dropdownContent.style.display = 'none';
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    }
+    
+    // function handleDistrictSelection(districtId, districtName) {
+    //   document.getElementById('searchInput').value = districtName;
+      
+    //   // Fetch thanas based on the selected district ID
+    //   getThanasByDistrictId(districtId);
+    // }
+
+    function handleDistrictSelection(districtId, districtName) {
+    document.getElementById('searchInput').value = districtName;
+    
+    // Fetch thanas based on the selected district ID
+    if (districtId) {
+        getThanasByDistrictId(districtId);
+    }
+}
+
+    
+    function handleThanaSelection() {
+      const thanaDropdown = document.getElementById('thanaDropdownContent');
+      const selectedThanaId = thanaDropdown.value;
+      const selectedThanaName = thanaDropdown.options[thanaDropdown.selectedIndex].textContent;
+    
+      // if (selectedThanaId) {
+      //   document.getElementById('searchInput').value = selectedThanaName;
+      // }
+    }
+    
+    // function handleKeyDown(event) {
+    //   const dropdownContent = document.getElementById('dropdownContent');
+    //   const thanaDropdown = document.getElementById('thanaDropdownContent');
+    //   const options = dropdownContent.querySelectorAll('a');
+      
+    //   if (event.key === 'ArrowDown') {
+    //     event.preventDefault(); // Prevent default scrolling of the page
+        
+    //     if (selectedIndex < dropdownOptions.length - 1) {
+    //       selectedIndex++;
+    //       updateSelectedOption(options);
+    //     }
+    //   } else if (event.key === 'ArrowUp') {
+    //     event.preventDefault(); // Prevent default scrolling of the page
+        
+    //     if (selectedIndex > 0) {
+    //       selectedIndex--;
+    //       updateSelectedOption(options);
+    //     }
+    //   } else if (event.key === 'Enter') {
+    //     event.preventDefault(); // Prevent form submission
+        
+    //     if (selectedIndex !== -1) {
+    //       const selectedOption = options[selectedIndex];
+    //       document.getElementById('searchInput').value = selectedOption.textContent;
+    //       dropdownContent.style.display = 'none';
+    //     } else if (thanaDropdown.selectedIndex !== 0) {
+    //       handleThanaSelection();
+    //     }
+    //   }
+    // }
+    
+
+
+    
+    // Event listeners
+    document.getElementById('searchInput').addEventListener('input', getDistricts);
+    document.getElementById('thanaDropdownContent').addEventListener('change', handleThanaSelection);
+    document.addEventListener('keydown', handleKeyDown);
+    
+  </script> -->
+  
+<!-- Right code -->
+
+<!-- <script>
+  let dropdownOptions = [];
+  let thanaDropdownOptions = [];
+  let selectedIndex = -1;
+
+function handleKeyDown(event) {
+    const dropdownContent = document.getElementById('dropdownContent');
+    const options = dropdownContent.querySelectorAll('a');
+
+    if (event.key === 'ArrowDown') {
+        event.preventDefault(); // Prevent default scrolling of the page
+
+        if (selectedIndex < dropdownOptions.length - 1) {
+            selectedIndex++;
+            updateSelectedOption(options);
+        }
+    } else if (event.key === 'ArrowUp') {
+        event.preventDefault(); // Prevent default scrolling of the page
+
+        if (selectedIndex > 0) {
+            selectedIndex--;
+            updateSelectedOption(options);
+        }
+    } else if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission
+
+        if (selectedIndex !== -1) {
+            const selectedOption = options[selectedIndex];
+            document.getElementById('searchInput').value = selectedOption.textContent;
+            dropdownContent.style.display = 'none';
+            const districtId = selectedOption.getAttribute('data-id'); // Get district ID
+            console.log(districtId);
+            handleDistrictSelection(districtId, selectedOption.textContent); // Fetch thanas
+        }
+    }
+}
+
+function updateSelectedOption(options) {
+    options.forEach(option => {
+        option.classList.remove('active');
+    });
+
+    if (selectedIndex !== -1) {
+        options[selectedIndex].classList.add('active');
+    }
+}
+
+function handleSelection() {
+    const districtId = this.getAttribute('data-id');
+    const districtName = this.textContent;
+    handleDistrictSelection(districtId, districtName);
+}
+
+async function getDistricts() {
+    const searchInput = document.getElementById('searchInput').value;
+    const dropdownContent = document.getElementById('dropdownContent');
+    dropdownContent.innerHTML = ''; // Clear previous suggestions
+    dropdownOptions = []; // Clear previous dropdown options
+
+    try {
+        const response = await fetch("https://salesforcedev.bergerbd.com/api/district/getAllDistricts");
+        const data = await response.json();
+
+        if (!data || !Array.isArray(data.result)) {
+            console.error('Unexpected data format:', data);
+            return;
+        }
+
+        const districts = data.result;
+        const filteredDistricts = districts.filter(district => district.name.toLowerCase().includes(searchInput.toLowerCase()));
+
+        // Clear previous dropdown options
+        dropdownContent.innerHTML = '';
+        dropdownOptions = [];
+
+        filteredDistricts.forEach(district => {
+            dropdownOptions.push(district.name);
+            const option = createDropdownOption(district);
+            dropdownContent.appendChild(option);
+        });
+
+        if (filteredDistricts.length > 0) {
+            dropdownContent.style.display = 'block';
+        } else {
+            dropdownContent.style.display = 'none';
+        }
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+}
+
+async function getThanasByDistrictId(districtId) {
+    const thanaDropdown = document.getElementById('thanaDropdownContent');
+    thanaDropdown.innerHTML = '<option value="">Select Thana</option>'; // Clear previous thana suggestions
+
+    try {
+        const response = await fetch(`https://salesforcedev.bergerbd.com/api/thana/getAllThanaByDistrictId/${districtId}`);
+        
+        const data = await response.json();
+
+        if (!data || !data.result || !Array.isArray(data.result.thanaResponse)) {
+            console.log('No data found for this District');      
+            return;
+        }
+
+        const thanas = data.result.thanaResponse;
+
+        thanas.forEach(thana => {
+            const option = document.createElement('option');
+            option.value = thana.id;
+            option.textContent = thana.name;
+            thanaDropdown.appendChild(option);
+        });
+
+        thanaDropdown.style.display = 'block';
+    } catch (error) {
+        console.error('Error fetching thana data:', error);
+    }
+}
+
+function handleDistrictSelection(districtId, districtName) {
+    document.getElementById('searchInput').value = districtName;
+    getThanasByDistrictId(districtId); // Fetch thanas based on the selected district ID
+}
+
+function createDropdownOption(district) {
+    const option = document.createElement('a');
+    option.textContent = district.name;
+    option.setAttribute('data-id', district.id); // Add district ID attribute
+    
+    // Add event listener for mouse click
+    option.addEventListener('click', handleSelection);
+
+    // Add event listener for Enter key press
+    option.addEventListener('keydown', event => {
+        if (event.key === 'Enter') {
+            handleSelection.call(option); // Call handleSelection with the correct context
+        }
+    });
+
+    return option;
+}
+
+
+function handleSelection() {
+    const districtId = this.getAttribute('data-id');
+    const districtName = this.textContent;
+    handleDistrictSelection(districtId, districtName);
+    getThanasByDistrictId(districtId);  // Call getThanasByDistrictId
+    hideDropdown();  // Hide dropdown after selection
+}
+
+function hideDropdown() {
+    const dropdownContent = document.getElementById('dropdownContent');
+    dropdownContent.style.display = 'none';
+}
+
+// Event listener to hide dropdown when clicking outside of it
+document.addEventListener('click', function(event) {
+    const dropdownContent = document.getElementById('dropdownContent');
+    if (!dropdownContent.contains(event.target)) {
+        hideDropdown();
+    }
+});
+
+
+// Event listeners
+document.getElementById('searchInput').addEventListener('input', getDistricts);
+document.addEventListener('keydown', handleKeyDown);
+
+</script> -->
+
+<script>
+  let dropdownOptions = [];
+  let selectedIndex = -1;
+
+  function handleKeyDown(event) {
+      const dropdownContent = document.getElementById('dropdownContent');
+      const options = dropdownContent.querySelectorAll('a');
+
+      if (event.key === 'ArrowDown') {
+          event.preventDefault();
+          if (selectedIndex < dropdownOptions.length - 1) {
+              selectedIndex++;
+              updateSelectedOption(options);
+          }
+      } else if (event.key === 'ArrowUp') {
+          event.preventDefault();
+          if (selectedIndex > 0) {
+              selectedIndex--;
+              updateSelectedOption(options);
+          }
+      } else if (event.key === 'Enter') {
+          event.preventDefault();
+          if (selectedIndex !== -1) {
+              const selectedOption = options[selectedIndex];
+              document.getElementById('searchInput').value = selectedOption.textContent;
+              dropdownContent.style.display = 'none';
+              const districtId = selectedOption.getAttribute('data-id');
+              handleDistrictSelection(districtId, selectedOption.textContent);
+          }
+      }
+  }
+
+  function updateSelectedOption(options) {
+      options.forEach(option => {
+          option.classList.remove('active');
+      });
+
+      if (selectedIndex !== -1) {
+          options[selectedIndex].classList.add('active');
+      }
+  }
+
+  async function getDistricts() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const dropdownContent = document.getElementById('dropdownContent');
+      dropdownContent.innerHTML = ''; // Clear previous suggestions
+      dropdownOptions = []; // Clear previous dropdown options
+
+      try {
+          const response = await fetch("https://salesforcedev.bergerbd.com/api/district/getAllDistricts");
+          const data = await response.json();
+
+          if (!data || !Array.isArray(data.result)) {
+              console.error('Unexpected data format:', data);
+              return;
+          }
+
+          const districts = data.result;
+          const filteredDistricts = districts.filter(district => district.name.toLowerCase().includes(searchInput));
+
+          dropdownContent.innerHTML = ''; // Clear previous dropdown options
+          dropdownOptions = [];
+
+          filteredDistricts.forEach(district => {
+              dropdownOptions.push(district.name);
+              const option = createDropdownOption(district);
+              dropdownContent.appendChild(option);
+          });
+
+          dropdownContent.style.display = filteredDistricts.length > 0 ? 'block' : 'none';
+      } catch (error) {
+          console.error('Error fetching data:', error);
+      }
+  }
+
+  async function getThanasByDistrictId(districtId) {
+      const thanaDropdown = document.getElementById('thanaDropdownContent');
+      thanaDropdown.innerHTML = '<option value="">Select Thana</option>';
+
+      try {
+          const response = await fetch(`https://salesforcedev.bergerbd.com/api/thana/getAllThanaByDistrictId/${districtId}`);
+          const data = await response.json();
+
+          if (!data || !data.result || !Array.isArray(data.result.thanaResponse)) {
+              console.log('No data found for this District');
+              return;
+          }
+
+          const thanas = data.result.thanaResponse;
+
+          thanas.forEach(thana => {
+              const option = document.createElement('option');
+              option.value = thana.id;
+              option.textContent = thana.name;
+              thanaDropdown.appendChild(option);
+          });
+
+          thanaDropdown.style.display = 'block';
+      } catch (error) {
+          console.error('Error fetching thana data:', error);
+      }
+  }
+
+  function handleDistrictSelection(districtId, districtName) {
+      document.getElementById('searchInput').value = districtName;
+      getThanasByDistrictId(districtId);
+  }
+
+  function createDropdownOption(district) {
+      const option = document.createElement('a');
+      option.textContent = district.name;
+      option.setAttribute('data-id', district.id);
+      option.addEventListener('click', handleSelection);
+      return option;
+  }
+
+  function handleSelection() {
+      const districtId = this.getAttribute('data-id');
+      const districtName = this.textContent;
+      handleDistrictSelection(districtId, districtName);
+      hideDropdown();
+  }
+
+  function hideDropdown() {
+      const dropdownContent = document.getElementById('dropdownContent');
+      dropdownContent.style.display = 'none';
+  }
+
+  document.getElementById('searchInput').addEventListener('input', getDistricts);
+  document.addEventListener('keydown', handleKeyDown);
+
+  // Event listener to hide dropdown when clicking outside of it
+  document.addEventListener('click', function(event) {
+      const dropdownContent = document.getElementById('dropdownContent');
+      if (!dropdownContent.contains(event.target)) {
+          hideDropdown();
+      }
+  });
+</script>
+
+  
 </body>
 </html>

@@ -5,6 +5,58 @@ body {
     padding-bottom: 20px;
     font-size: 12px;
 }
+.right{
+    background-color: white;
+
+}
+/* distric list */
+
+.district {
+    padding: 10px;
+    width: calc(100% - 20px); /* Adjusted width to accommodate padding and margins */
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc; /* Add border to the dropdown container */
+}
+
+.dropdown-content {
+    max-height: 150px; /* Set a maximum height for the dropdown container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 0;
+    margin: 0;
+    /* box-shadow: 1px 1px 1px 1px; */
+    
+}
+
+.dropdown-content a {
+    display: block; /* Change display property to block */
+    padding: 5px 10px; /* Add padding for better spacing */
+    text-decoration: none; /* Remove underline from links */
+    color: black; /* Set text color */
+   
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Change background color on hover */
+}
+
+.dropdown-content a.active {
+    background-color: #007bff; /* Change background color of selected item */
+    color: white; /* Change text color of selected item */
+}
+
+  
+  
+  .district-class{
+    margin-left: 10px;
+  }
+
+  /*  */
+
+span{
+    color: red;
+    font-size: 15px;
+}
 
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
@@ -46,11 +98,26 @@ h3{
 
 .row {
     width: 900px;
-    height: 570px;
+    height: 670px;
     border-radius: 10px;
     background: #fff;
     padding: 0px;
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
+}
+
+.textarea{
+    border-left: none ;
+    border-top: none;
+    border-right: none;
+    height: 45px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    outline: none;
+    margin-bottom: 20px;
+    color: #40414a;
+    transition: .5s;
 }
 
 .text {
@@ -136,7 +203,7 @@ img {
     color: #5d5076;
 }
 
-.subject{
+.subject-dropdown{
     font-size: 12px;
     margin-left: 10px;
 }
@@ -155,6 +222,12 @@ img {
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 6px;
+}
+
+.dropdown-content{
+    padding: 10px;
+    width: 400px;
+    margin-bottom: 10px;
 }
 
 .input-field .input:focus, .input-field .input:valid {
@@ -196,7 +269,9 @@ img {
         color: #fff;
     }
 
-
+    .disabled {
+        cursor: not-allowed;
+    }
 /* Responsive: Portrait tablets and up */
 @media screen and (max-width: 768px) {
     .jumbotron {
