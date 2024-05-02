@@ -105,7 +105,7 @@ h3{
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
 }
 
-.textarea{
+.query{
     border-left: none ;
     border-top: none;
     border-right: none;
@@ -325,14 +325,4 @@ img {
         display: none;
     }
 }
-/*@media screen and (max-width:1023) {
-
-    .img {
-        display: none;
-    }
-
-    .side-image {
-        display: none;
-    }
-}*/
 
